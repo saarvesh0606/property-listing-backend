@@ -72,10 +72,10 @@ app.post('/api/properties', async (req, res) => {
             return res.status(400).json({ error: "Missing required property fields." });
         }
 
-        // Add a placeholder image URL, similar to the frontend logic
+        // **FIXED LOGIC**: Use the provided image URL if it exists, otherwise create a placeholder.
         const docData = {
             ...newPropertyData,
-            image: `https://placehold.co/600x400/cccccc/333?text=${newPropertyData.name.replace(/\s/g, '+')}`
+            image: newPropertyData.image || `https://placehold.co/600x400/cccccc/333?text=${newPropertyData.name.replace(/\s/g, '+')}`
         };
 
         const docRef = await propertiesCollectionRef.add(docData);
